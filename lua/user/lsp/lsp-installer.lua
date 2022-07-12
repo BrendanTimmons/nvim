@@ -4,6 +4,17 @@ if not status_ok then
 	return
 end
 
+-- Installed servers
+local serverNames = {
+  'angularls',
+  'eslint',
+  'html',
+  'jsonls',
+  'jsonls',
+  'sumneko_lua',
+  'tsserver'
+}
+
 -- Register a handler that will be called for all installed servers.
 -- Alternatively, you may also register handlers on specific server instances instead (see example below).
 lsp_installer.on_server_ready(function(server)
@@ -12,15 +23,12 @@ lsp_installer.on_server_ready(function(server)
 		capabilities = require("user.lsp.handlers").capabilities,
 	}
 
-	 if server.name == "jsonls" then
-	 	local jsonls_opts = require("user.lsp.settings.jsonls")
-	 	opts = vim.tbl_deep_extend("force", jsonls_opts, opts)
+  for _, serverName in pairs(serverNames) do
+	 if server.name == serverName then
+	 	local serverOpts = require("user.lsp.settings." .. serverName)
+	 	opts = vim.tbl_deep_extend("force", serverOpts, opts)
 	 end
-
-	 if server.name == "sumneko_lua" then
-	 	local sumneko_opts = require("user.lsp.settings.sumneko_lua")
-	 	opts = vim.tbl_deep_extend("force", sumneko_opts, opts)
-	 end
+  end
 
 	-- This setup() function is exactly the same as lspconfig's setup function.
 	-- Refer to https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
