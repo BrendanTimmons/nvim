@@ -14,10 +14,11 @@ local formatting = null_ls.builtins.formatting
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 null_ls.setup {
-  debug = false,
+  debug = true,
   sources = {
     formatting.prettier.with {
       -- extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" }
+      -- filetypes = { "javascript","typescript","css","scss","json","yaml","markdown","graphql","md","txt","html", },
     },
   },
   on_attach = function(client, bufnr)

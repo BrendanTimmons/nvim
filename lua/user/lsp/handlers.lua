@@ -55,6 +55,7 @@ local function lsp_highlight_document(client)
   -- end
 end
 
+-- equivalent of typing :lua vim.lsp.buf.blah()
 local function lsp_keymaps(bufnr)
   local opts = { noremap = true, silent = true }
   vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
@@ -75,6 +76,9 @@ end
 
 M.on_attach = function(client, bufnr)
   if client.name == "tsserver" then
+    client.server_capabilities.documentFormattingProvider = false
+  end
+  if client.name == "html" then
     client.server_capabilities.documentFormattingProvider = false
   end
   lsp_keymaps(bufnr)
