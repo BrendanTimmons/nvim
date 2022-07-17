@@ -79,6 +79,7 @@ local opts = {
 }
 
 local mappings = {
+  ["/"] = {"<cmd>silent %!npx prettier --ignore-path ~/.config/.prettierignore --stdin-filepath %<CR>", "Prettier force manual format"},
   ["a"] = { "<cmd>Alpha<cr>", "Alpha" },
   ["b"] = {
     "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>",
